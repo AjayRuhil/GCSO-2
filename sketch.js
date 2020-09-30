@@ -1,47 +1,33 @@
-var movingrect,fixedrect
- 
-var ball1,ball2,ball3,ball4
+var car,wall
+
+var speed,weight
+
 
 function setup() {
-  createCanvas(800,400);
- movingrect= createSprite(400, 200, 50, 50);
- movingrect.shapeColor="red"
- movingrect.velocityX=2
- movingrect.velocityY=-2
- fixedrect=createSprite(200,200,50,50)
- fixedrect.shapeColor="red"
- fixedrect.velocityX=2
- fixedrect.velocityY=-2
+  createCanvas(1600,400);
+  speed=random(55,90)
+  weight=random(400,1500)
 
- ball1=createSprite(30,30,20,20)
- ball1.shapeColor=("yellow")
- ball2=createSprite(60,30,20,20)
- ball2.shapeColor=("yellow")
- ball3=createSprite(90,30,20,20)
- ball3.shapeColor=("yellow")
- ball3.velocityX=2
- ball3.velocityY=-2
- ball4=createSprite(120,30,20,20)
- ball4.shapeColor=("yellow")
- 
- 
+ car=createSprite(50, 200, 50, 50);
+ car.velocityX=speed
+
+ wall=createSprite(1500,200,60,height/2)
+ wall.shapeColor=color(80,80,80)
 }
 
 function draw() {
-  background(1); 
-  movingrect.y=mouseY
-  movingrect.x=mouseX 
-  
-
-     if( istouching(movingrect,ball1)){
-     movingrect.shapeColor=("blue")
-     ball1.shapeColor=("green")
-     }
-     else{
-      movingrect.shapeColor="red"
-      ball1.shapeColor="yellow"
+  background(255,255,255);  
+  if(wall.x-car.x<(car.width+wall.width)/2){
+    car.velocityX=0
+    var deformation=0.5*weight*speed*speed/2
+    if(deformation<100){
+      car.shapeColor=color(0,255,0)
     }
-    bounceoff(movingrect,ball3)
-
-  drawSprites();
-}
+    if(deformation>180){
+      car.shapeColor=(255,0,0)
+    }
+    if(deformation<180 && deformation>100){
+      car.shapeColor=(230,230,0)
+    }
+    drawSprites()
+  }}
